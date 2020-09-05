@@ -28,7 +28,9 @@
                         </button>
                     </div>
                 </div>
-                <form id="history"></form>
+                <div id="search-history-container">
+                    <!-- generated search history buttons here -->
+                </div>
             </div>
             <!-- Right Column (containing information, forecast title, and forecast in 3 rows) -->
             <div class="col-8 light">
@@ -38,7 +40,7 @@
                         <div class="row">                            
                             <div class="col-12">
                                 <span id="city-name" class="city-name align-middle"></span>
-                                <img id="current-pic" src="placeholder" alt="">
+                                <img id="current-pic" src="">
                             </div>
                         </div>
                         <div class="row">
@@ -63,22 +65,50 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-12">
-                        <h2>5 Day Forecast</h2>
+                        <h4 class="hide" id="forecastHeader">Five Day Forecast</h2>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col forecast bg-primary text-white m-3 rounded"></div>
-                    <div class="col forecast bg-primary text-white m-3 rounded"></div>
-                    <div class="col forecast bg-primary text-white m-3 rounded"></div>
-                    <div class="col forecast bg-primary text-white m-3 rounded"></div>
-                    <div class="col forecast bg-primary text-white m-3 rounded"></div>
+
+                <div class="row justify-content-center">
+                    <div id="day0" class="card-body mx-2 my-2">
+                        <h5 id="0date"></h5>
+                        <p id="0five_day_temp"></p>
+                        <p id="0five_day_humidity"></p>
+                        <img id="0five_day_icon" src="">
+                    </div>
+                    <div id="day1" class="card-body mx-2 my-2">
+                            <h5 id="1date"></h5>
+                            <p id="1five_day_temp"></p>
+                            <p id="1five_day_humidity"></p>
+                            <img id="1five_day_icon" src="">
+                    </div>
+                    <div id="day2" class="card-body mx-2 my-2"> 
+                            <h5 id="2date"></h5>
+                            <p id="2five_day_temp"></p>
+                            <p id="2five_day_humidity"></p>
+                            <img id="2five_day_icon" src="">
+                    </div>
+                    <div id="day3" class="card-body mx-2 my-2">
+                            <h5 id="3date"></h5>
+                            <p id="3five_day_temp"></p>
+                            <p id="3five_day_humidity"></p>
+                            <img id="3five_day_icon" src="">
+                    </div>
+                    <div id="day4" class="card-body mx-2 my-2">
+                            <h5 id="4date"></h5>
+                            <p id="4five_day_temp"></p>
+                            <p id="4five_day_humidity"></p>
+                            <img id="4five_day_icon" src="">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
