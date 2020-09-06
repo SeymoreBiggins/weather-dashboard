@@ -4,7 +4,7 @@ var url = ""; // https://api.openweathermap.org/data/2.5/forecast?q=
 var currentURL = "";
 var cityHistoryContainer = document.getElementById("search-history-container");
 let cities = [];
-var city = "";
+let city = "";
 
 getHistory(); 
 historyClick(); 
@@ -61,15 +61,16 @@ function historyClick(){
 function searchClick() {
     $("#search-button").on("click", function(event){
         event.preventDefault();
-        city = $(this).prev().val().trim();
+        console.log($("#city-input"));
+        city = $("#city-input").prev().val().trim();
         
-        //push the city user entered into cities array 
+        // push the city from input box into cities[]
         cities.push(city);
-        //make sure cities array.length is never more than 8 
+        // make sure cities[] is never more than 5
         if(cities.length > 5){
             cities.shift()
         }
-        //return from function early if form is blank
+        // return from function early if form is blank
         if (city == ""){
             return; 
         }
