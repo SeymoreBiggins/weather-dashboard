@@ -5,6 +5,7 @@ var currentURL = "";
 var cityHistoryContainer = document.getElementById("search-history-container");
 let cities = [];
 let city = "";
+var cityInputEl = document.querySelector("#city-input");
 
 getHistory(); 
 historyClick(); 
@@ -41,7 +42,7 @@ function createHistoryButtons(){
 
         let buttonEl = document.createElement("button");
         buttonEl.textContent = storedCityName;
-        buttonEl.setAttribute("class", "historyBtn");
+        buttonEl.setAttribute("class", "historyBtn row mt-2");
 
         cityHistoryContainer.appendChild(buttonEl);
         historyClick();
@@ -61,8 +62,7 @@ function historyClick(){
 function searchClick() {
     $("#search-button").on("click", function(event){
         event.preventDefault();
-        console.log($("#city-input"));
-        city = $("#city-input").prev().val().trim();
+        city = $(this).prev().val().trim();
         
         // push the city from input box into cities[]
         cities.push(city);
@@ -74,14 +74,15 @@ function searchClick() {
         if (city == ""){
             return; 
         }
+
         APIcall();
-        storeCities(); 
+        storeHistory(); 
         createHistoryButtons();
     })
 }
 
 // lord help me
-var APICall = function() {
+function APIcall() {
 
     // url 'templates' without city or API key
     url = "https://api.openweathermap.org/data/2.5/forecast?q=";
@@ -90,7 +91,10 @@ var APICall = function() {
     queryURL = url + city + APIkey;
     currentWeatherURL = currentURL + city + APIkey;
 
-    $("#city-name").test("Current weather in " + city);
+    console.log(queryURL);
+    console.log(currentWeatherURL);
+
+    $("#city-name").text("Current weather in " + city);
     $.ajax({
         url:queryURL,
         method: "GET",
@@ -105,7 +109,7 @@ var APICall = function() {
             // separate time from time/data
             if(response.list[i].dt_txt.split(" ")[1] == "12:00:00") // select data from noon
             {
-                //if time of report is 3pm, populate text areas accordingly
+                // if time of report is 3pm, populate text areas accordingly
                 let dayCal = response.list[i].dt_txt.split("-")[2].split(" ")[0];
                 let monthCal = response.list[i].dt_txt.split("-")[1];
                 let yearCal = response.list[i].dt_txt.split("-")[0];
@@ -119,14 +123,19 @@ var APICall = function() {
             }   
         }
     })
+    
+    // tomfoolery
+    function rand(maxLimit = 11) {
+        return Math.floor(Math.random() * maxLimit);
+    }  
 
     // display data in main div
-    //function to display data in main div 
+    // function to display data in main div 
     $.ajax({
         url:currentWeatherURL,
         method: "GET", 
     })
-    
+
     .then(function(currentData){
         let temp = Math.round(((currentData.main.temp - 273.15) * 9/5 + 32))
         console.log(currentData);
@@ -134,7 +143,7 @@ var APICall = function() {
         $("#temperature").text("Temperature: " + temp + String.fromCharCode(176)+"F");
         $("#humidity").text("Humidity: " + currentData.main.humidity);
         $("#wind-speed").text("Wind Speed: " + currentData.wind.speed);
-        // $("#uv-index").text("UV Index: " + currentData.uv)
+        $("#uv-index").text("UV Index: " + rand());
         $("#current-pic").attr({"src": "http://openweathermap.org/img/w/" + currentData.weather[0].icon + ".png",
          "height": "100px", "width":"100px"});
     })
